@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# AeroCore // System Hub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AeroCore is an advanced, cinematic, suborbital and international Flight Control Dashboard. Built using **React 19** and custom **Vanilla CSS variables**, it features an Apple-style "Liquid Glass" theme with rich frosted translucency, vibrant background animations, and an interactive airspace telemetry radar.
 
-## Available Scripts
+AeroCore links seamlessly with your local **Eclipse Java REST Backend** (coupled to a MySQL database) and features a smart client-side **Demo Mode fallback** so that the entire visual suite and state operations remain active even when the database server is offline.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🎨 Theme & Visual Philosophy
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+AeroCore supports dual high-fidelity themes, toggled dynamically via a header control:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🌙 Dark Mode (Cyber Obsidian)
+*   **Aesthetics**: Deep dark slate card overlays (`rgba(13, 17, 28, 0.55)`) with a high blur saturation on top of floating neon cyan, indigo, and violet background blobs.
+*   **Visual Highlights**: Radiant neon boundaries, glowing text gradients, and high-frequency scan indicators.
 
-### `npm test`
+### ☀️ Light Mode (Apple Liquid Glass)
+*   **Aesthetics**: Ultra-transparent white frosted glass panels (`rgba(255, 255, 255, 0.22)`) overlaying an Apple off-white (`#f0f3f8`) workspace.
+*   **Visual Highlights**: Vivid pastel peach, rose, and sky blue background blobs that refract and bleed through the cards on scroll/drag, finished with a distinct white specular border glare (`rgba(255, 255, 255, 0.85)` at the top edge).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🚀 Key Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  **Airspace Telemetry Radar (SVG)**: Renders coordinates for all registered flights as active blips on an animated rotating sweep grid. Hovering over a blip displays detailed flight statistics; clicking locks focus on that flight manifest.
+2.  **Live Boarding Pass Ticket**: Filling out the flight registration form updates a virtual airport boarding ticket in real-time, rendering custom barcodes, ticket class, gate assignments, and flight routing lines.
+3.  **Four-Mode manifest search**: Capsule-style switcher corresponding directly to Eclipse database query endpoints:
+    *   **Code Search**: Lookup specific details for a unique flight code.
+    *   **Carrier Search**: Filter manifests by airline company.
+    *   **Route Search**: Query departures and arrivals (Origin ✈ Destination).
+    *   **Price Range Slider**: Filter schedules by minimum and maximum fare caps.
+4.  **macOS-style Notifications**: Replaces standard browser alerts with custom slide-in glass toast notifications that animate at the top-right.
+5.  **Fail-safe Demo Mode**: Pings the Eclipse server on startup. If unreachable, it launches local storage simulation loaded with default international flights (Emirates, Singapore Airlines, Lufthansa) so you can test all operations (Save, Delete, Search) offline.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠 Tech Stack
 
-### `npm run eject`
+*   **Core**: React 19, JavaScript (ES6+), HTML5
+*   **Styling**: Vanilla CSS3, Google Fonts (*Space Grotesk* for HUD readouts & *Inter* for interfaces)
+*   **REST Client**: Axios
+*   **Graphics**: Scalable Vector Graphics (SVG)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ⚙️ REST API Endpoints
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The dashboard integrates with your Eclipse Java service running at `http://localhost:8080/api/flights` using these schemas:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| HTTP Method | API Path | Action |
+| :--- | :--- | :--- |
+| `POST` | `/api/flights` | Save a new flight |
+| `GET` | `/api/flights/{code}` | Retrieve single flight details |
+| `GET` | `/api/flights/carrier/{carrier}` | Fetch flights by carrier |
+| `GET` | `/api/flights/route?source={src}&destination={dst}` | Fetch flights by route |
+| `GET` | `/api/flights/price?min={min}&max={max}` | Fetch flights by price range |
+| `GET` | `/api/flights` | Fetch all registered flights |
+| `DELETE` | `/api/flights/{code}` | Decommission flight record |
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📦 Directory Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+flight-app/
+├── public/
+│   └── index.html             # Main template with SEO meta tags and titles
+├── src/
+│   ├── components/
+│   │   ├── BoardingPassTicket.jsx  # Boarding ticket preview widget
+│   │   ├── FlightRadar.jsx         # SVG Radar Sweep visualizer
+│   │   ├── FlightSearchPanel.jsx   # Multi-mode switcher and query panels
+│   │   └── GlassNotification.jsx   # macOS style slide-out toast system
+│   ├── services/
+│   │   └── FlightService.js        # Axios endpoints configurations
+│   ├── App.js                 # Global state controller and layout grid
+│   ├── index.js               # React bootstrap file
+│   └── index.css              # Apple Liquid Glass variable overrides and keyframes
+└── README.md
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🚀 Running the Project
 
-### Analyzing the Bundle Size
+### 1. Install Dependencies
+Run this in the project directory to fetch all node packages:
+```bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 2. Launch Development Server
+```bash
+npm start
+```
+The application will launch on [http://localhost:3000](http://localhost:3000).
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 3. Build for Production
+Creates minified bundles inside the `/build` folder:
+```bash
+npm run build
+```
