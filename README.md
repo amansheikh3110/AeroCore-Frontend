@@ -5,6 +5,15 @@ AeroCore is an advanced, cinematic, suborbital and international Flight Control 
 AeroCore links seamlessly with your local **Eclipse Java REST Backend** (coupled to a MySQL database) and features a smart client-side **Demo Mode fallback** so that the entire visual suite and state operations remain active even when the database server is offline.
 
 ---
+Screenshots :
+
+<img width="1915" height="879" alt="image" src="https://github.com/user-attachments/assets/8384943a-5aa4-49fe-a38a-41255cdf989c" />
+
+<img width="1918" height="485" alt="image" src="https://github.com/user-attachments/assets/e5a7f89b-476b-4907-a78f-b586be2809ea" />
+
+
+
+
 
 ## 🎨 Theme & Visual Philosophy
 
